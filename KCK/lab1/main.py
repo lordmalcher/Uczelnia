@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from math import ceil
 
-def plot(dataframes):
+def plot(dataframes, all_dfs):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~ PLOT 1 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -47,8 +47,10 @@ def plot(dataframes):
 
     ax3 = plt.subplot(1, 2, 2)
     data = list()
+
     for df in dataframes:
         data.append(df['avg'])
+
 
     flierprops = dict(marker="+", markeredgecolor='blue')
     bp = ax3.boxplot(data, notch=True, flierprops=flierprops, showmeans=True)
@@ -59,10 +61,12 @@ def plot(dataframes):
     plt.setp(bp['means'], markeredgecolor='black', marker='o', markerfacecolor='blue')
 
     ax3.yaxis.tick_right()
+    ax3.set_ylim(60, 100)
 
     ax3.set_xticklabels(labels, rotation=22)
     ax3.tick_params(
-        direction='in'
+        direction='in',
+        top=True
     )
     ax3.grid(True, linestyle='--')
 
@@ -74,6 +78,9 @@ def clean_data(df):
     df['avg'] = df.mean(axis=1) * 100
     return df
 
+def get_last_row(df):
+    return df.iloc[-1:]
+
 def main():
     pd_2cel = pd.read_csv('2cel.csv')
     pd_2cel_rs = pd.read_csv('2cel-rs.csv')
@@ -82,14 +89,16 @@ def main():
     pd_rsel = pd.read_csv('rsel.csv')
 
     dataframes = [pd_2cel, pd_2cel_rs, pd_cel_rs, pd_cel, pd_rsel]
+    cleaned_dfs = list()
     for idx, df in enumerate(dataframes):
         generation, effort = df['generation'], df['effort']
         df = df.drop(['generation', 'effort'], axis=1)
         df = clean_data(df)
+        dataframes[idx] = df.drop(['avg'], axis=1)
         df = pd.concat([generation, effort, df['avg']], axis=1)
-        dataframes[idx] = df
+        cleaned_dfs.append(df)
 
-    plot(dataframes)
+    plot(cleaned_dfs, dataframes)
 
 
 if __name__ == '__main__':
