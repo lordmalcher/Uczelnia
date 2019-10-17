@@ -29,8 +29,8 @@ def plot_color_gradients(gradients, names):
 
     for ax, gradient, name in zip(axes, gradients, names):
         # Create image with two lines and draw gradient on it
-        img = np.zeros((2, 1024, 3))
-        for i, v in enumerate(np.linspace(0, 1, 1024)):
+        img = np.zeros((2, STEPS, 3))
+        for i, v in enumerate(np.linspace(0, 1, STEPS)):
             img[:, i] = gradient(v)
 
         im = ax.imshow(img, aspect='auto')
