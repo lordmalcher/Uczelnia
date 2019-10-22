@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/SK2.dir/main.cpp.o CMakeFiles/SK2.dir/lab1/lab1.cpp.o  -o SK2 

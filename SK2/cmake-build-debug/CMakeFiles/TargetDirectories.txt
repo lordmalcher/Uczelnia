@@ -1,3 +1,0 @@
-/home/inf132697/home/Uczelnia/SK2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/inf132697/home/Uczelnia/SK2/cmake-build-debug/CMakeFiles/SK2.dir
-/home/inf132697/home/Uczelnia/SK2/cmake-build-debug/CMakeFiles/edit_cache.dir
